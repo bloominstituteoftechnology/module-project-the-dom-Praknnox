@@ -8,8 +8,9 @@ function moduleProject1() {
   // 👉 TASK 1 - Add a "widget" class name to widgets so CSS kicks in
   //  ✨ add your code here
   let wicket=document.querySelectorAll('section>div')
-  wicket.forEach(widget=>{
+  wicket.forEach((widget,idx)=>{
     widget.classList.add('widget')
+    widget.setAttribute('tabindex',idx+1)
   })
 
   // 👉 TASK 2 - Build a "Quote of the Day" widget
@@ -63,10 +64,31 @@ function moduleProject1() {
   document.querySelector('.friends').appendChild(power)
   let annes=pebble.dateOfBirth.split('-')[0]
   let info=`${pebble.fname} ${pebble.lname} was born in ${annes} and `
-  //power.textContent=`${pebble.fname} ${pebble.lname} was born in ${annes} and is friends with ${}`
+  if(!pebble.friends.length){
+    info+='has no friends.'
+  }else{
+    info+='is friends with'
+    for(let index=0;index<pebble.friends.length;index++){
+      let amigo=pebble.friends[index]
+      let copain=people.find(p=>p.id===amigo)
+      let identity=`${copain.fname} ${copain.lname}`
+      let last=index===pebble.friends.length-1
+      let notlast=index===pebble.friends.length-2
+      if(last){
+        info+=` ${identity}.`
+      }else
+      if(notlast){
+        info+=` ${identity} and`
+      }else{
+        info+=` ${identity}, `
+      }
+    }
+  }
+  power.textContent=info
 
   // 👉 TASK 6 - Make it so user can tab through the widgets
   //  ✨ add your code here
+
 
   // 👆 WORK WORK ABOVE THIS LINE 👆
 }
